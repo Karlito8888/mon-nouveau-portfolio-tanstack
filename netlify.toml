@@ -2,11 +2,12 @@
 # The @netlify/vite-plugin-tanstack-start handles the build automatically
 
 [build]
-  command = "curl -fsSL https://bun.sh/install | bash && ~/.bun/bin/bun install && ~/.bun/bin/bun run build"
+  command = "curl -fsSL https://bun.sh/install | bash && export PATH=$HOME/.bun/bin:$PATH && bun install && bun run build"
   publish = ".output/public"
 
 [build.environment]
   NODE_VERSION = "22"
+  NITRO_PRESET = "netlify"
 
 # Cache static assets
 [[headers]]
