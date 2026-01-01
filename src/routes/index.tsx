@@ -1,14 +1,14 @@
-import { ClientOnly } from '@tanstack/react-router'
-import { createFileRoute } from '@tanstack/react-router'
-import { lazy, Suspense } from 'react'
-import { Navigation } from '../components/navigation'
+import { ClientOnly } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
+import { Navigation } from "../components/navigation";
 
 // Lazy load the entire RenderModel + Wizard to prevent SSR issues
-const WizardScene = lazy(() => import('../components/scenes/WizardScene'))
+const WizardScene = lazy(() => import("../components/scenes/WizardScene"));
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: HomePage,
-})
+});
 
 function HomePage() {
   return (
@@ -44,5 +44,5 @@ function HomePage() {
         </ClientOnly>
       </div>
     </main>
-  )
+  );
 }

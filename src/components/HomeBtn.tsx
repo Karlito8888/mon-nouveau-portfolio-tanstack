@@ -1,8 +1,8 @@
-import { Link } from '@tanstack/react-router'
-import { motion } from 'framer-motion'
-import { Home } from 'lucide-react'
+import { Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { Home } from "lucide-react";
 
-const MotionLink = motion.create(Link)
+const MotionLink = motion.create(Link);
 
 /**
  * HomeBtn component - floating home button for sub-pages
@@ -14,7 +14,7 @@ export function HomeBtn() {
       to="/"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ delay: 1, type: 'spring', stiffness: 200 }}
+      transition={{ delay: 1, type: "spring", stiffness: 200 }}
       className="home-btn glass"
       aria-label="Go to home page"
     >
@@ -25,5 +25,5 @@ export function HomeBtn() {
       </span>
       <span className="sr-only">Go to Home Page</span>
     </MotionLink>
-  )
+  );
 }

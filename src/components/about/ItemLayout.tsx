@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
-import clsx from 'clsx'
-import type { ReactNode } from 'react'
+import { motion } from "framer-motion";
+import clsx from "clsx";
+import type { ReactNode } from "react";
 
 interface ItemLayoutProps {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -18,9 +18,9 @@ export function ItemLayout({ children, className }: ItemLayoutProps) {
       whileInView={{ scale: 1 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      className={clsx('item-layout glass', className)}
+      className={clsx("item-layout glass", className)}
     >
       {children}
     </motion.div>
-  )
+  );
 }

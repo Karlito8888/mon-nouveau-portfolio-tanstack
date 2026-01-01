@@ -1,9 +1,9 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
-import { HomeBtn } from '../components/HomeBtn'
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { HomeBtn } from "../components/HomeBtn";
 
-export const Route = createFileRoute('/_subpages')({
+export const Route = createFileRoute("/_subpages")({
   component: SubpagesLayout,
-})
+});
 
 /**
  * Layout for sub-pages (About, Projects, Contact)
@@ -15,5 +15,5 @@ function SubpagesLayout() {
       <HomeBtn />
       <Outlet />
     </main>
-  )
+  );
 }

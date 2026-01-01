@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form'
-import { motion } from 'framer-motion'
-import { Toaster, toast } from 'sonner'
+import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
+import { Toaster, toast } from "sonner";
 
 const container = {
   hidden: { opacity: 0 },
@@ -11,17 +11,17 @@ const container = {
       delayChildren: 0.2,
     },
   },
-}
+};
 
 const item = {
   hidden: { scale: 0 },
   show: { scale: 1 },
-}
+};
 
 interface FormData {
-  name: string
-  email: string
-  message: string
+  name: string;
+  email: string;
+  message: string;
 }
 
 /**
@@ -34,16 +34,16 @@ export function Form() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<FormData>();
 
   const onSubmit = (_data: FormData) => {
-    const toastId = toast.loading('Sending your message, please wait...')
+    const toastId = toast.loading("Sending your message, please wait...");
 
     // Demo mode - show info message
     toast.info(
-      'Form submissions are demo-only. Contact me via email for real inquiries.',
-      { id: toastId }
-    )
+      "Form submissions are demo-only. Contact me via email for real inquiries.",
+      { id: toastId },
+    );
 
     // TODO: Enable EmailJS integration
     // emailjs.send(
@@ -52,7 +52,7 @@ export function Form() {
     //   { to_name: 'Charles', from_name: data.name, reply_to: data.email, message: data.message },
     //   { publicKey: process.env.PUBLIC_PUBLIC_KEY }
     // )
-  }
+  };
 
   return (
     <>
@@ -68,11 +68,11 @@ export function Form() {
           variants={item}
           type="text"
           placeholder="name"
-          {...register('name', {
-            required: 'This field is required!',
+          {...register("name", {
+            required: "This field is required!",
             minLength: {
               value: 3,
-              message: 'Name should be at least 3 characters long.',
+              message: "Name should be at least 3 characters long.",
             },
           })}
           className="contact-input glass"
@@ -85,7 +85,7 @@ export function Form() {
           variants={item}
           type="email"
           placeholder="email"
-          {...register('email', { required: 'This field is required!' })}
+          {...register("email", { required: "This field is required!" })}
           className="contact-input glass"
         />
         {errors.email && (
@@ -95,15 +95,15 @@ export function Form() {
         <motion.textarea
           variants={item}
           placeholder="message"
-          {...register('message', {
-            required: 'This field is required!',
+          {...register("message", {
+            required: "This field is required!",
             maxLength: {
               value: 500,
-              message: 'Message should be less than 500 characters',
+              message: "Message should be less than 500 characters",
             },
             minLength: {
               value: 50,
-              message: 'Message should be more than 50 characters',
+              message: "Message should be more than 50 characters",
             },
           })}
           className="contact-textarea glass"
@@ -121,5 +121,5 @@ export function Form() {
         </motion.button>
       </motion.form>
     </>
-  )
+  );
 }

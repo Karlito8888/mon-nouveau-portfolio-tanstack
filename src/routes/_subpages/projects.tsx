@@ -1,14 +1,14 @@
-import { ClientOnly } from '@tanstack/react-router'
-import { createFileRoute } from '@tanstack/react-router'
-import { lazy, Suspense } from 'react'
-import { ProjectList } from '../../components/projects'
-import { projectsData } from '../../data'
+import { ClientOnly } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
+import { ProjectList } from "../../components/projects";
+import { projectsData } from "../../data";
 
-const StaffScene = lazy(() => import('../../components/scenes/StaffScene'))
+const StaffScene = lazy(() => import("../../components/scenes/StaffScene"));
 
-export const Route = createFileRoute('/_subpages/projects')({
+export const Route = createFileRoute("/_subpages/projects")({
   component: ProjectsPage,
-})
+});
 
 function ProjectsPage() {
   return (
@@ -45,5 +45,5 @@ function ProjectsPage() {
         <ProjectList projects={projectsData} />
       </div>
     </>
-  )
+  );
 }

@@ -1,13 +1,13 @@
-import { ClientOnly } from '@tanstack/react-router'
-import { createFileRoute } from '@tanstack/react-router'
-import { lazy, Suspense } from 'react'
-import { AboutDetails } from '../../components/about'
+import { ClientOnly } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense } from "react";
+import { AboutDetails } from "../../components/about";
 
-const HatScene = lazy(() => import('../../components/scenes/HatScene'))
+const HatScene = lazy(() => import("../../components/scenes/HatScene"));
 
-export const Route = createFileRoute('/_subpages/about')({
+export const Route = createFileRoute("/_subpages/about")({
   component: AboutPage,
-})
+});
 
 function AboutPage() {
   return (
@@ -44,5 +44,5 @@ function AboutPage() {
         <AboutDetails />
       </div>
     </>
-  )
+  );
 }

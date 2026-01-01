@@ -1,4 +1,4 @@
-import { ItemLayout } from './ItemLayout'
+import { ItemLayout } from "./ItemLayout";
 
 /**
  * AboutDetails component - grid of stat cards and info
@@ -14,16 +14,18 @@ export function AboutDetails() {
             <h2 className="text-2xl text-accent">Architect of Enchantment</h2>
             <p className="text-sm text-foreground">
               Freelance web developer based in Dasmariñas, Philippines.
-              <br /><br />
-              Self-taught and passionate about modern web applications, I recently
-              graduated from OpenClassrooms as a Web Integrator.
-              <br /><br />
+              <br />
+              <br />
+              Self-taught and passionate about modern web applications, I
+              recently graduated from OpenClassrooms as a Web Integrator.
+              <br />
+              <br />
               My journey combines technical expertise with project management
               experience from running my own transportation business.
-              <br /><br />
-              I craft seamless digital experiences using React, TypeScript, Next.js,
-              and Node.js, always striving to create fast, accessible, and visually
-              captivating web applications.
+              <br />
+              <br />I craft seamless digital experiences using React,
+              TypeScript, Next.js, and Node.js, always striving to create fast,
+              accessible, and visually captivating web applications.
             </p>
           </div>
         </ItemLayout>
@@ -45,7 +47,7 @@ export function AboutDetails() {
         <ItemLayout className="about-card-github-langs">
           <img
             className="about-github-img"
-            src={`${import.meta.env.VITE_GITHUB_STATS_URL || 'https://github-readme-stats.vercel.app'}/api/top-langs?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
+            src={`${import.meta.env.VITE_GITHUB_STATS_URL || "https://github-readme-stats.vercel.app"}/api/top-langs?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
             alt="Top Languages"
             loading="lazy"
           />
@@ -55,7 +57,7 @@ export function AboutDetails() {
         <ItemLayout className="about-card-github-stats">
           <img
             className="about-github-img"
-            src={`${import.meta.env.VITE_GITHUB_STATS_URL || 'https://github-readme-stats.vercel.app'}/api?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
+            src={`${import.meta.env.VITE_GITHUB_STATS_URL || "https://github-readme-stats.vercel.app"}/api?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
             alt="GitHub Stats"
             loading="lazy"
           />
@@ -72,5 +74,5 @@ export function AboutDetails() {
         </ItemLayout>
       </div>
     </section>
-  )
+  );
 }

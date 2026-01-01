@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion'
-import type { ResumeItem } from '../../data'
+import { motion } from "framer-motion";
+import type { ResumeItem } from "../../data";
 
 interface ResumeTimelineProps {
-  items: ResumeItem[]
+  items: ResumeItem[];
 }
 
 const containerVariants = {
@@ -13,7 +13,7 @@ const containerVariants = {
       staggerChildren: 0.2,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -22,10 +22,10 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: 'easeOut',
+      ease: "easeOut" as const,
     },
   },
-}
+};
 
 export function ResumeTimeline({ items }: ResumeTimelineProps) {
   return (
@@ -48,21 +48,33 @@ export function ResumeTimeline({ items }: ResumeTimelineProps) {
         {items.map((item, index) => (
           <motion.div
             key={item.id}
-            className={`resume-item ${index % 2 === 0 ? 'resume-item-left' : 'resume-item-right'}`}
+            className={`resume-item ${index % 2 === 0 ? "resume-item-left" : "resume-item-right"}`}
             variants={itemVariants}
           >
             {/* Period badge */}
             <div className="resume-period">{item.period}</div>
 
             {/* Timeline dot */}
-            <div className={`resume-dot ${item.type === 'education' ? 'resume-dot-education' : 'resume-dot-work'}`}>
-              {item.type === 'education' ? (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div
+              className={`resume-dot ${item.type === "education" ? "resume-dot-education" : "resume-dot-work"}`}
+            >
+              {item.type === "education" ? (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
                   <path d="M6 12v5c3 3 9 3 12 0v-5" />
                 </svg>
               ) : (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
                   <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
                 </svg>
@@ -72,16 +84,14 @@ export function ResumeTimeline({ items }: ResumeTimelineProps) {
             {/* Card */}
             <div className="resume-card glass">
               <h3 className="resume-card-title">
-                {item.title.includes('\n') ? (
-                  item.title.split('\n').map((line, i) => (
-                    <span key={i}>
-                      {line}
-                      {i < item.title.split('\n').length - 1 && <br />}
-                    </span>
-                  ))
-                ) : (
-                  item.title
-                )}
+                {item.title.includes("\n")
+                  ? item.title.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i < item.title.split("\n").length - 1 && <br />}
+                      </span>
+                    ))
+                  : item.title}
               </h3>
               <p className="resume-card-org">{item.organization}</p>
               {item.location && (
@@ -89,10 +99,10 @@ export function ResumeTimeline({ items }: ResumeTimelineProps) {
               )}
               {item.description && (
                 <p className="resume-card-description">
-                  {item.description.split('\n').map((line, i) => (
+                  {item.description.split("\n").map((line, i) => (
                     <span key={i}>
                       {line}
-                      {i < item.description!.split('\n').length - 1 && <br />}
+                      {i < item.description!.split("\n").length - 1 && <br />}
                     </span>
                   ))}
                 </p>
@@ -109,5 +119,5 @@ export function ResumeTimeline({ items }: ResumeTimelineProps) {
         ))}
       </motion.div>
     </div>
-  )
+  );
 }

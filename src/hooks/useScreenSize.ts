@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 /**
  * Hook to track the current screen width
@@ -11,33 +11,33 @@ import { useEffect, useState } from 'react'
  * - xl: 1280px
  */
 export function useScreenSize(): number {
-  const [screenSize, setScreenSize] = useState(0)
+  const [screenSize, setScreenSize] = useState(0);
 
   useEffect(() => {
     function getScreenSize() {
-      return window.innerWidth
+      return window.innerWidth;
     }
 
     function handleResize() {
-      setScreenSize(getScreenSize())
+      setScreenSize(getScreenSize());
     }
 
     // Set initial size
-    handleResize()
+    handleResize();
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  return screenSize
+  return screenSize;
 }
 
 /**
  * Returns boolean flags for common breakpoints
  */
 export function useBreakpoints() {
-  const size = useScreenSize()
+  const size = useScreenSize();
 
   return {
     isMobile: size > 0 && size < 640,
@@ -45,5 +45,5 @@ export function useBreakpoints() {
     isMedium: size >= 768,
     isLarge: size >= 1024,
     isXLarge: size >= 1280,
-  }
+  };
 }

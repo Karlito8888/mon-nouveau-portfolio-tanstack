@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion'
-import { ProjectLayout } from './ProjectLayout'
+import { motion } from "framer-motion";
+import { ProjectLayout } from "./ProjectLayout";
 
 const container = {
   hidden: { opacity: 0 },
@@ -10,18 +10,18 @@ const container = {
       delayChildren: 1.5,
     },
   },
-}
+};
 
 interface Project {
-  name: string
-  description: string
-  date: string
-  demoLink: string
-  image: string
+  name: string;
+  description: string;
+  date: string;
+  demoLink: string;
+  image: string;
 }
 
 interface ProjectListProps {
-  projects: Project[]
+  projects: Project[];
 }
 
 /**
@@ -40,5 +40,5 @@ export function ProjectList({ projects }: ProjectListProps) {
         <ProjectLayout key={index} {...project} />
       ))}
     </motion.div>
-  )
+  );
 }

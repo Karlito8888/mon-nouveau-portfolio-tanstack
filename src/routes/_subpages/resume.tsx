@@ -1,10 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { ResumeTimeline } from '../../components/resume'
-import { resumeData } from '../../data'
+import { createFileRoute } from "@tanstack/react-router";
+import { ResumeTimeline } from "../../components/resume";
+import { resumeData } from "../../data";
 
-export const Route = createFileRoute('/_subpages/resume')({
+export const Route = createFileRoute("/_subpages/resume")({
   component: ResumePage,
-})
+});
 
 function ResumePage() {
   return (
@@ -32,5 +32,5 @@ function ResumePage() {
         <ResumeTimeline items={resumeData} />
       </div>
     </>
-  )
+  );
 }

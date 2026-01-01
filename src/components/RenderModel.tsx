@@ -1,12 +1,12 @@
-import { Environment } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import { ClientOnly } from '@tanstack/react-router'
-import clsx from 'clsx'
-import { Suspense, type ReactNode } from 'react'
+import { Environment } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { ClientOnly } from "@tanstack/react-router";
+import clsx from "clsx";
+import { Suspense, type ReactNode } from "react";
 
 interface RenderModelProps {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
 }
 
 /**
@@ -15,16 +15,14 @@ interface RenderModelProps {
 function CanvasContent({ children, className }: RenderModelProps) {
   return (
     <Canvas
-      className={clsx('render-model-canvas', className)}
+      className={clsx("render-model-canvas", className)}
       shadows={false}
       dpr={[1, 2]}
     >
-      <Suspense fallback={null}>
-        {children}
-      </Suspense>
+      <Suspense fallback={null}>{children}</Suspense>
       <Environment preset="dawn" />
     </Canvas>
-  )
+  );
 }
 
 /**
@@ -33,8 +31,10 @@ function CanvasContent({ children, className }: RenderModelProps) {
  */
 export function RenderModel({ children, className }: RenderModelProps) {
   return (
-    <ClientOnly fallback={<div className={clsx('render-model-canvas', className)} />}>
+    <ClientOnly
+      fallback={<div className={clsx("render-model-canvas", className)} />}
+    >
       <CanvasContent className={className}>{children}</CanvasContent>
     </ClientOnly>
-  )
+  );
 }

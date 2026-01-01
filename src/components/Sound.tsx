@@ -1,45 +1,49 @@
-import { motion } from 'framer-motion'
-import { Volume2, VolumeX } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { motion } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Sound component - simple audio toggle button
  * Audio starts muted, user can toggle with button
  */
 export function Sound() {
-  const audioRef = useRef<HTMLAudioElement>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     // Check localStorage for previous preference
-    const musicConsent = localStorage.getItem('musicConsent')
-    if (musicConsent === 'true') {
-      setIsPlaying(true)
+    const musicConsent = localStorage.getItem("musicConsent");
+    if (musicConsent === "true") {
+      setIsPlaying(true);
     }
-  }, [])
+  }, []);
 
   // Handle user interaction to start audio (browser autoplay policy)
   useEffect(() => {
     if (isPlaying && audioRef.current) {
       const playAudio = () => {
-        audioRef.current?.play()
-        document.removeEventListener('click', playAudio)
-      }
-      document.addEventListener('click', playAudio)
-      return () => document.removeEventListener('click', playAudio)
+        audioRef.current?.play();
+        document.removeEventListener("click", playAudio);
+      };
+      document.addEventListener("click", playAudio);
+      return () => document.removeEventListener("click", playAudio);
     }
-  }, [isPlaying])
+  }, [isPlaying]);
 
   const toggle = () => {
-    const newState = !isPlaying
-    setIsPlaying(newState)
+    const newState = !isPlaying;
+    setIsPlaying(newState);
 
     if (audioRef.current) {
-      newState ? audioRef.current.play() : audioRef.current.pause()
+      if (newState) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
     }
 
-    localStorage.setItem('musicConsent', String(newState))
-  }
+    localStorage.setItem("musicConsent", String(newState));
+  };
 
   return (
     <div className="sound-container">
@@ -54,14 +58,24 @@ export function Sound() {
         animate={{ scale: 1 }}
         transition={{ delay: 1 }}
         className="sound-btn glass"
-        aria-label={isPlaying ? 'Mute background music' : 'Play background music'}
+        aria-label={
+          isPlaying ? "Mute background music" : "Play background music"
+        }
       >
         {isPlaying ? (
-          <Volume2 className="sound-icon" strokeWidth={1.5} aria-hidden="true" />
+          <Volume2
+            className="sound-icon"
+            strokeWidth={1.5}
+            aria-hidden="true"
+          />
         ) : (
-          <VolumeX className="sound-icon" strokeWidth={1.5} aria-hidden="true" />
+          <VolumeX
+            className="sound-icon"
+            strokeWidth={1.5}
+            aria-hidden="true"
+          />
         )}
       </motion.button>
     </div>
-  )
+  );
 }
