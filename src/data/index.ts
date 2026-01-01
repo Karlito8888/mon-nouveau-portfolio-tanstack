@@ -182,6 +182,15 @@ export const projectsData: Project[] = [
   },
   {
     id: 4,
+    name: "Creative Vision",
+    description:
+      "Minimalist event management app with MERN stack following KISS philosophy",
+    date: "2024-09",
+    demoLink: "https://creative-vision-project.netlify.app/",
+    image: "/projects/creative-vision.png",
+  },
+  {
+    id: 5,
     name: "Kasa",
     description:
       "Modern apartment rental app with React, dynamic photo gallery and responsive design",
@@ -190,7 +199,7 @@ export const projectsData: Project[] = [
     image: "/projects/kasa.png",
   },
   {
-    id: 5,
+    id: 6,
     name: "OhMyFood",
     description:
       "Online meal ordering app with CSS-only animations and mobile-first approach",
@@ -199,22 +208,13 @@ export const projectsData: Project[] = [
     image: "/projects/ohmyfood.png",
   },
   {
-    id: 6,
+    id: 7,
     name: "Booki",
     description:
       "Travel agency homepage with responsive design for mobile, tablet and desktop",
     date: "2024-07",
     demoLink: "https://karlito8888.github.io/OCR-BOOKI/",
     image: "/projects/booki.png",
-  },
-  {
-    id: 7,
-    name: "Creative Vision",
-    description:
-      "Minimalist event management app with MERN stack following KISS philosophy",
-    date: "2024-09",
-    demoLink: "https://creative-vision-project.netlify.app/",
-    image: "/projects/creative-vision.png",
   },
   {
     id: 8,

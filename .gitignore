@@ -76,3 +76,6 @@ todos.json
 *.bak
 *.tmp
 *.temp
+
+# Model backups
+public/models/backup/
