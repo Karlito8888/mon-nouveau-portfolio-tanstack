@@ -1,8 +1,7 @@
 # Netlify configuration for TanStack Start with SSR
-# The @netlify/vite-plugin-tanstack-start handles the build automatically
 
 [build]
-  command = "curl -fsSL https://bun.sh/install | bash && export PATH=$HOME/.bun/bin:$PATH && bun install && bun run build"
+  command = "npm install && npm run build"
   publish = ".output/public"
 
 [build.environment]
