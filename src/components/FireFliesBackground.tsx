@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useBreakpoints } from "../hooks/useScreenSize";
 
 interface Firefly {
   id: number;
@@ -18,13 +19,17 @@ function createFirefly(): Firefly {
 
 export function FireFliesBackground() {
   const [fireflies, setFireflies] = useState<Firefly[]>([]);
+  const { isMobile } = useBreakpoints();
+
+  // Reduce fireflies on mobile for better performance
+  const maxFireflies = isMobile ? 8 : 15;
 
   useEffect(() => {
     const addFireflyPeriodically = () => {
       const newFirefly = createFirefly();
       setFireflies((currentFireflies) => [
-        // Keep max 15 fireflies
-        ...currentFireflies.slice(-14),
+        // Keep max fireflies (8 on mobile, 15 on desktop)
+        ...currentFireflies.slice(-(maxFireflies - 1)),
         newFirefly,
       ]);
     };
@@ -32,7 +37,7 @@ export function FireFliesBackground() {
     const interval = setInterval(addFireflyPeriodically, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [maxFireflies]);
 
   return (
     <div className="fireflies-container" aria-hidden="true">

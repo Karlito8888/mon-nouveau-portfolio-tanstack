@@ -28,12 +28,15 @@ export const Wizard = memo(function Wizard({
   // Target scale (normalize to number)
   const targetScale = typeof scale === "number" ? scale : scale[0];
 
-  // Floating animation + progressive scale-in
+  // Floating animation + rotation + progressive scale-in
   useFrame((state, delta) => {
     if (modelRef.current) {
       // Floating animation
       modelRef.current.position.y =
         -1.5 + Math.sin(state.clock.elapsedTime) * 0.15;
+
+      // Continuous 360° rotation (same speed as Hat and Staff)
+      modelRef.current.rotation.y += 0.007;
 
       // Progressive scale animation with smooth lerp
       // Speed factor: lower = slower entrance (0.8 gives ~2-3 second entrance)

@@ -1,19 +1,49 @@
-import { Environment } from "@react-three/drei";
+import { Environment, PerformanceMonitor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import { useBreakpoints } from "../../hooks/useScreenSize";
 import { Wizard } from "../models";
 
 /**
  * Complete Wizard 3D scene - lazy loaded for client-only rendering
- * This module is never evaluated on the server
+ * Optimized for mobile with adaptive DPR and simplified lighting
  */
 export default function WizardScene() {
+  const { isMobile } = useBreakpoints();
+  const [dpr, setDpr] = useState(isMobile ? 1 : 1.5);
+
   return (
-    <Canvas className="render-model-canvas" shadows={false} dpr={[1, 2]}>
-      <Suspense fallback={null}>
-        <Wizard />
-      </Suspense>
-      <Environment preset="dawn" />
+    <Canvas
+      className="render-model-canvas"
+      shadows={false}
+      dpr={dpr}
+      gl={{
+        powerPreference: "high-performance",
+        antialias: dpr > 1,
+        stencil: false,
+        depth: true,
+      }}
+    >
+      <PerformanceMonitor
+        onIncline={() =>
+          setDpr((prev) => Math.min(prev + 0.25, isMobile ? 1.5 : 2))
+        }
+        onDecline={() => setDpr((prev) => Math.max(prev - 0.25, 0.75))}
+        flipflops={3}
+        onFallback={() => setDpr(0.75)}
+      >
+        <Suspense fallback={null}>
+          <Wizard />
+        </Suspense>
+        {isMobile ? (
+          <>
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[5, 5, 5]} intensity={1.2} />
+          </>
+        ) : (
+          <Environment preset="dawn" />
+        )}
+      </PerformanceMonitor>
     </Canvas>
   );
 }
