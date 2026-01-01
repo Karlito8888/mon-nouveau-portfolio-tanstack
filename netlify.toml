@@ -1,12 +1,12 @@
 # Netlify configuration for TanStack Start with SSR
+# The @netlify/vite-plugin-tanstack-start handles the build automatically
 
 [build]
-  command = "npm install && npm run build"
-  publish = ".output/public"
+  command = "bun run build"
+  publish = "dist/client"
 
 [build.environment]
   NODE_VERSION = "22"
-  NITRO_PRESET = "netlify"
 
 # Cache static assets
 [[headers]]
