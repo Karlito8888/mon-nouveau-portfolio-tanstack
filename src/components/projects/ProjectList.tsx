@@ -17,6 +17,7 @@ interface Project {
   description: string
   date: string
   demoLink: string
+  image: string
 }
 
 interface ProjectListProps {

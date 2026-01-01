@@ -10,13 +10,14 @@ interface ProjectLayoutProps {
   description: string
   date: string
   demoLink: string
+  image: string
 }
 
 /**
  * ProjectLayout component - individual project card
  * Features stagger animation via parent container
  */
-export function ProjectLayout({ name, description, date, demoLink }: ProjectLayoutProps) {
+export function ProjectLayout({ name, description, date, demoLink, image }: ProjectLayoutProps) {
   return (
     <motion.a
       variants={item}
@@ -25,12 +26,15 @@ export function ProjectLayout({ name, description, date, demoLink }: ProjectLayo
       rel="noopener noreferrer"
       className="project-card glass"
     >
-      <div className="project-card-info">
-        <h2 className="project-name">{name}</h2>
-        <p className="project-description">{description}</p>
+      <div className="project-card-top">
+        <div className="project-card-header">
+          <img src={image} alt={name} className="project-logo" loading="lazy" />
+          <h2 className="project-name">{name}</h2>
+        </div>
+        <div className="project-card-divider" />
+        <p className="project-date">{new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
       </div>
-      <div className="project-card-divider" />
-      <p className="project-date">{new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+      <p className="project-description">{description}</p>
     </motion.a>
   )
 }

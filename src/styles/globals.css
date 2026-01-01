@@ -1053,8 +1053,8 @@ select {
 .project-card {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: var(--space-sm);
   padding: var(--space-md);
   border-radius: 0.5rem;
   overflow: hidden;
@@ -1069,10 +1069,32 @@ select {
   }
 }
 
-.project-card-info {
+.project-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.project-card-header {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.project-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+@media (min-width: 768px) {
+  .project-logo {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .project-name {
@@ -1082,13 +1104,7 @@ select {
 
 .project-description {
   color: var(--muted);
-  display: none;
-}
-
-@media (min-width: 640px) {
-  .project-description {
-    display: inline-block;
-  }
+  line-height: 1.4;
 }
 
 .project-card-divider {
@@ -1100,12 +1116,8 @@ select {
 
 .project-date {
   color: var(--muted);
-}
-
-@media (min-width: 640px) {
-  .project-date {
-    color: var(--foreground);
-  }
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Projects page 3D model container */

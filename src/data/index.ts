@@ -42,6 +42,7 @@ export interface Project {
   description: string
   date: string
   demoLink: string
+  image: string
 }
 
 /**
@@ -149,6 +150,7 @@ export const projectsData: Project[] = [
     description: 'Community app for Garden Grove Village with chat, forums, marketplace, and local services',
     date: '2026-01',
     demoLink: '#coming-soon',
+    image: '/projects/myggv-app.png',
   },
   {
     id: 2,
@@ -156,13 +158,15 @@ export const projectsData: Project[] = [
     description: 'Smart GPS navigation app for Garden Grove Village with MapLibre GL and real-time routing',
     date: '2025-11',
     demoLink: 'https://myggv-gps.netlify.app/',
+    image: '/projects/myggv-gps.png',
   },
   {
     id: 3,
-    name: 'Abaddon Pest Control',
+    name: 'Abaddon',
     description: 'Professional pest control services website for FDA-licensed company in Philippines',
     date: '2024-10',
     demoLink: 'https://abaddonpestcontrol.netlify.app/',
+    image: '/projects/abaddon.png',
   },
   {
     id: 4,
@@ -170,6 +174,7 @@ export const projectsData: Project[] = [
     description: 'Modern apartment rental app with React, dynamic photo gallery and responsive design',
     date: '2024-08',
     demoLink: 'https://charles-bourgault-ocr-kasa.netlify.app/',
+    image: '/projects/kasa.png',
   },
   {
     id: 5,
@@ -177,6 +182,7 @@ export const projectsData: Project[] = [
     description: 'Online meal ordering app with CSS-only animations and mobile-first approach',
     date: '2024-07',
     demoLink: 'https://karlito8888.github.io/OCR-OhMyFood/',
+    image: '/projects/ohmyfood.png',
   },
   {
     id: 6,
@@ -184,13 +190,15 @@ export const projectsData: Project[] = [
     description: 'Travel agency homepage with responsive design for mobile, tablet and desktop',
     date: '2024-07',
     demoLink: 'https://karlito8888.github.io/OCR-BOOKI/',
+    image: '/projects/booki.png',
   },
   {
     id: 7,
     name: 'Creative Vision',
     description: 'Minimalist event management app with MERN stack following KISS philosophy',
-    date: '2024-06',
+    date: '2024-09',
     demoLink: 'https://creative-vision-project.netlify.app/',
+    image: '/projects/creative-vision.png',
   },
   {
     id: 8,
@@ -198,6 +206,7 @@ export const projectsData: Project[] = [
     description: 'Restaurant website with elegant styling using HTML, CSS and SCSS',
     date: '2024-05',
     demoLink: 'https://karlito8888.github.io/chabouchabou.github.io/assets/projects/le-resto/index.html',
+    image: '/projects/le-resto.png',
   },
   {
     id: 9,
@@ -205,6 +214,7 @@ export const projectsData: Project[] = [
     description: 'Gaming school landing page with modern CSS/SCSS design',
     date: '2024-05',
     demoLink: 'https://karlito8888.github.io/chabouchabou.github.io/assets/projects/gaming-campus/index.html',
+    image: '/projects/gaming-campus.png',
   },
   {
     id: 10,
@@ -212,5 +222,6 @@ export const projectsData: Project[] = [
     description: 'Cryptocurrency market monitoring dashboard with CoinGecko API integration',
     date: '2024-03',
     demoLink: 'https://karlito8888.github.io/watch-tower/',
+    image: '/projects/watch-tower.png',
   },
 ]
