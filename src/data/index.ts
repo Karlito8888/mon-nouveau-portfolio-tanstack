@@ -10,26 +10,19 @@ export interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: 'Home', link: '/', icon: 'home', newTab: false },
   { label: 'About', link: '/about', icon: 'about', newTab: false },
   { label: 'Projects', link: '/projects', icon: 'projects', newTab: false },
   { label: 'Contact', link: '/contact', icon: 'contact', newTab: false },
   {
     label: 'Github',
-    link: 'https://github.com/CharlesBourgworX',
+    link: 'https://github.com/Karlito8888',
     icon: 'github',
     newTab: true,
   },
   {
     label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/charlesbourgault',
+    link: 'https://www.linkedin.com/in/charles-bourgault-407694300/',
     icon: 'linkedin',
-    newTab: true,
-  },
-  {
-    label: 'X',
-    link: 'https://x.com/charlesbourgault',
-    icon: 'twitter',
     newTab: true,
   },
   {

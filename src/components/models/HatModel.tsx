@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { memo, useRef } from 'react'
+import { memo, useMemo, useRef } from 'react'
 import type { Group } from 'three'
 
 interface HatModelProps {
@@ -21,6 +21,9 @@ export const HatModel = memo(function HatModel({
   const { scene } = useGLTF('/models/hat-transformed.glb')
   const modelRef = useRef<Group>(null)
 
+  // Clone the scene to avoid shared state issues on remount
+  const clonedScene = useMemo(() => scene.clone(), [scene])
+
   // Continuous rotation animation
   useFrame(() => {
     if (modelRef.current) {
@@ -31,7 +34,7 @@ export const HatModel = memo(function HatModel({
   return (
     <primitive
       ref={modelRef}
-      object={scene}
+      object={clonedScene}
       position={position}
       scale={scale}
       rotation={rotation}

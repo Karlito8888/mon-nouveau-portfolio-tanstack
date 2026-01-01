@@ -1,6 +1,10 @@
+import { ClientOnly } from '@tanstack/react-router'
 import { createFileRoute } from '@tanstack/react-router'
-import { RenderModel } from '../components/RenderModel'
-import { Wizard } from '../components/models'
+import { lazy, Suspense } from 'react'
+import { Navigation } from '../components/navigation'
+
+// Lazy load the entire RenderModel + Wizard to prevent SSR issues
+const WizardScene = lazy(() => import('../components/scenes/WizardScene'))
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -9,6 +13,9 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   return (
     <main className="home-page">
+      {/* Circular navigation - only on home page */}
+      <Navigation />
+
       {/* Background image with opacity */}
       <picture>
         <source
@@ -28,11 +35,13 @@ function HomePage() {
         />
       </picture>
 
-      {/* 3D Wizard model */}
+      {/* 3D Wizard model - client only with lazy loading */}
       <div className="home-canvas-container">
-        <RenderModel>
-          <Wizard />
-        </RenderModel>
+        <ClientOnly fallback={null}>
+          <Suspense fallback={null}>
+            <WizardScene />
+          </Suspense>
+        </ClientOnly>
       </div>
     </main>
   )

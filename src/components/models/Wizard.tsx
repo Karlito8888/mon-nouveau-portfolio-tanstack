@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { memo, useRef } from 'react'
+import { memo, useMemo, useRef } from 'react'
 import type { Group } from 'three'
 
 interface WizardProps {
@@ -21,6 +21,9 @@ export const Wizard = memo(function Wizard({
   const { scene } = useGLTF('/models/wizard-transformed.glb')
   const modelRef = useRef<Group>(null)
 
+  // Clone the scene to avoid shared state issues on remount
+  const clonedScene = useMemo(() => scene.clone(), [scene])
+
   // Floating animation
   useFrame((state) => {
     if (modelRef.current) {
@@ -31,7 +34,7 @@ export const Wizard = memo(function Wizard({
   return (
     <primitive
       ref={modelRef}
-      object={scene}
+      object={clonedScene}
       position={position}
       scale={scale}
       rotation={rotation}

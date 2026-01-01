@@ -1,8 +1,10 @@
+import { ClientOnly } from '@tanstack/react-router'
 import { createFileRoute } from '@tanstack/react-router'
-import { RenderModel } from '../../components/RenderModel'
-import { Staff } from '../../components/models'
+import { lazy, Suspense } from 'react'
 import { ProjectList } from '../../components/projects'
 import { projectsData } from '../../data'
+
+const StaffScene = lazy(() => import('../../components/scenes/StaffScene'))
 
 export const Route = createFileRoute('/_subpages/projects')({
   component: ProjectsPage,
@@ -31,9 +33,11 @@ function ProjectsPage() {
 
       {/* 3D Staff model - fixed position */}
       <div className="projects-model-container">
-        <RenderModel>
-          <Staff />
-        </RenderModel>
+        <ClientOnly fallback={null}>
+          <Suspense fallback={null}>
+            <StaffScene />
+          </Suspense>
+        </ClientOnly>
       </div>
 
       {/* Projects list */}

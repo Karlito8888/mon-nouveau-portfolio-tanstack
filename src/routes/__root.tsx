@@ -3,7 +3,6 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import { FireFliesBackground } from '../components/FireFliesBackground'
-import { Navigation } from '../components/navigation'
 import { Sound } from '../components/Sound'
 import globalsCss from '../styles/globals.css?url'
 
@@ -41,7 +40,7 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Madimi+One&display=swap',
       },
     ],
   }),
@@ -52,14 +51,12 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body suppressHydrationWarning>
         {children}
-        {/* Portal for sound consent modal */}
-        <div id="sound-modal" />
         <TanStackDevtools
           config={{
             position: 'bottom-right',
@@ -81,7 +78,6 @@ function RootComponent() {
   return (
     <div className="min-h-screen relative">
       <FireFliesBackground />
-      <Navigation />
       <Sound />
       <Outlet />
     </div>

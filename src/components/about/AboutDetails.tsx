@@ -13,14 +13,17 @@ export function AboutDetails() {
           <div className="about-bio-content">
             <h2 className="text-2xl text-accent">Architect of Enchantment</h2>
             <p className="text-sm text-foreground">
-              My journey in web development is powered by an array of mystical
-              tools and languages, with JavaScript casting the core of my
-              enchantments. I wield frameworks like React.js and Next.js with
-              precision, crafting seamless portals (websites) that connect realms
-              (users) across the digital universe. The ancient arts of the
-              Jamstack empower me to create fast, secure, and dynamic experiences,
-              while my design skills ensure every creation is not only functional
-              but visually captivating.
+              Freelance web developer based in Dasmariñas, Philippines.
+              <br /><br />
+              Self-taught and passionate about modern web applications, I recently
+              graduated from OpenClassrooms as a Web Integrator.
+              <br /><br />
+              My journey combines technical expertise with project management
+              experience from running my own transportation business.
+              <br /><br />
+              I craft seamless digital experiences using React, TypeScript, Next.js,
+              and Node.js, always striving to create fast, accessible, and visually
+              captivating web applications.
             </p>
           </div>
         </ItemLayout>
@@ -28,13 +31,13 @@ export function AboutDetails() {
         {/* Stats cards */}
         <ItemLayout className="about-card-stat">
           <p className="about-stat">
-            25+ <sub className="about-stat-label">clients</sub>
+            33+ <sub className="about-stat-label">repositories</sub>
           </p>
         </ItemLayout>
 
         <ItemLayout className="about-card-stat">
           <p className="about-stat">
-            4+ <sub className="about-stat-label">years of experience</sub>
+            3+ <sub className="about-stat-label">years of coding</sub>
           </p>
         </ItemLayout>
 
@@ -42,7 +45,7 @@ export function AboutDetails() {
         <ItemLayout className="about-card-github-langs">
           <img
             className="about-github-img"
-            src="https://github-readme-stats.vercel.app/api/top-langs?username=CharlesBourgworX&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false"
+            src={`${import.meta.env.VITE_GITHUB_STATS_URL || 'https://github-readme-stats.vercel.app'}/api/top-langs?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
             alt="Top Languages"
             loading="lazy"
           />
@@ -52,7 +55,7 @@ export function AboutDetails() {
         <ItemLayout className="about-card-github-stats">
           <img
             className="about-github-img"
-            src="https://github-readme-stats.vercel.app/api?username=CharlesBourgworX&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false"
+            src={`${import.meta.env.VITE_GITHUB_STATS_URL || 'https://github-readme-stats.vercel.app'}/api?username=Karlito8888&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
             alt="GitHub Stats"
             loading="lazy"
           />
@@ -62,7 +65,7 @@ export function AboutDetails() {
         <ItemLayout className="about-card-skills">
           <img
             className="about-skills-img"
-            src="https://skillicons.dev/icons?i=react,ts,nextjs,tailwind,threejs,nodejs,postgres,supabase,docker,git,github,vscode,figma,linux"
+            src="https://skillicons.dev/icons?i=react,nextjs,vite,redux,nodejs,express,mongodb,supabase,python,tailwind,linux&perline=11"
             alt="Skills"
             loading="lazy"
           />
