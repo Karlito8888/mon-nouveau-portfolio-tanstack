@@ -1,0 +1,156 @@
+/**
+ * Example: CSS Patterns from Source Project
+ *
+ * This file demonstrates the CSS patterns and design system.
+ *
+ * Source: /home/charles/Bureau/Next.js-Creative-Portfolio-Website-main/src/app/globals.css
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================ */
+
+:root {
+  /* Colors */
+  --background: rgb(27, 27, 27);
+  --foreground: rgb(225, 225, 225);
+  --muted: rgb(115, 115, 115);
+  --accent: rgb(254, 254, 91); /* Yellow #FEFE5B */
+
+  /* Accent with opacity variants */
+  --accent-30: rgba(254, 254, 91, 0.3);
+  --accent-50: rgba(254, 254, 91, 0.5);
+
+  /* Background with opacity */
+  --background-20: rgba(27, 27, 27, 0.2);
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Shadows */
+  --shadow-glass: inset 0 0 10px rgba(254, 254, 91, 0.1);
+  --shadow-glass-hover: 0 0 20px rgba(254, 254, 91, 0.2);
+}
+
+/* ============================================
+   GLASS MORPHISM EFFECT
+   ============================================ */
+
+.glass {
+  background: var(--background-20);
+  border: 1px solid var(--accent-30);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-glass);
+  transition: box-shadow var(--transition-normal);
+}
+
+.glass:hover {
+  box-shadow: var(--shadow-glass-hover);
+}
+
+/* ============================================
+   SPINNING ANIMATIONS (for navigation)
+   ============================================ */
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 40s linear infinite;
+}
+
+/* Pause animation on hover */
+.group:hover .animate-spin-slow {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   FIREFLIES BACKGROUND GRADIENT
+   ============================================ */
+
+.firefly {
+  background: radial-gradient(
+    circle,
+    var(--accent) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Full viewport height accounting for mobile browsers */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Center content */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text styles */
+.text-accent {
+  color: var(--accent);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Mobile first approach */
+/* xs: 480px, md: 768px, lg: 1024px, xl: 1280px */
+
+@media (min-width: 480px) {
+  /* xs breakpoint styles */
+}
+
+@media (min-width: 768px) {
+  /* md breakpoint styles */
+}
+
+@media (min-width: 1024px) {
+  /* lg breakpoint styles */
+}
