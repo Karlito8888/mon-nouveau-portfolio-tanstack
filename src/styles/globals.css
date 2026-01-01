@@ -1113,16 +1113,25 @@ select {
   position: fixed;
   top: 0;
   left: 0;
-  width: 50%;
-  height: 100vh;
-  height: 100dvh;
+  width: 100%;
+  height: 40vh;
+  height: 40dvh;
   z-index: 1;
   pointer-events: none;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) {
   .projects-model-container {
-    display: none;
+    height: 50vh;
+    height: 50dvh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-model-container {
+    width: 50%;
+    height: 100vh;
+    height: 100dvh;
   }
 }
 
@@ -1288,4 +1297,293 @@ select {
 
 .sound-modal-btn:hover {
   box-shadow: var(--shadow-glass-hover);
+}
+
+/* ============================================
+   NOT FOUND PAGE (404)
+   ============================================ */
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.not-found h1 {
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.not-found p {
+  font-size: var(--font-size-xl);
+  color: var(--muted);
+  margin-bottom: var(--space-xl);
+}
+
+.not-found-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: 9999px;
+  font-size: var(--font-size-base);
+  color: var(--foreground);
+  text-decoration: none;
+  transition: box-shadow var(--transition-normal), color var(--transition-fast);
+}
+
+.not-found-link:hover {
+  color: var(--accent);
+  box-shadow: var(--shadow-glass-hover);
+}
+
+/* ============================================
+   RESUME PAGE - TIMELINE
+   ============================================ */
+
+.resume-container {
+  width: 100%;
+  max-width: var(--container-lg);
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+
+.resume-title {
+  font-size: var(--font-size-3xl);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--foreground);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .resume-title {
+    text-align: left;
+    font-size: var(--font-size-4xl);
+    margin-bottom: 3rem;
+  }
+}
+
+/* Timeline container */
+.resume-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Vertical line - mobile: left side */
+.resume-timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Desktop: center the line */
+@media (min-width: 768px) {
+  .resume-timeline::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Timeline item */
+.resume-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 4rem;
+  gap: var(--space-sm);
+}
+
+/* Desktop: alternating layout */
+@media (min-width: 768px) {
+  .resume-item {
+    flex-direction: row;
+    align-items: center;
+    padding-left: 0;
+    gap: var(--space-lg);
+  }
+
+  .resume-item-left {
+    flex-direction: row;
+  }
+
+  .resume-item-right {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Period badge */
+.resume-period {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+  order: -1;
+}
+
+@media (min-width: 768px) {
+  .resume-period {
+    flex: 0 0 auto;
+    width: 120px;
+    text-align: center;
+    font-size: var(--font-size-base);
+    order: 0;
+  }
+
+  .resume-item-left .resume-period {
+    text-align: right;
+  }
+
+  .resume-item-right .resume-period {
+    text-align: left;
+  }
+}
+
+/* Timeline dot */
+.resume-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--background);
+  border: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.resume-dot svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--accent);
+}
+
+.resume-dot-education {
+  border-color: var(--accent);
+}
+
+.resume-dot-education svg {
+  color: var(--accent);
+}
+
+.resume-dot-work {
+  border-color: var(--foreground);
+}
+
+.resume-dot-work svg {
+  color: var(--foreground);
+}
+
+/* Desktop: center the dot on the line */
+@media (min-width: 768px) {
+  .resume-dot {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .resume-dot svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* Card */
+.resume-card {
+  flex: 1;
+  max-width: 100%;
+  padding: var(--space-md);
+  border-radius: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .resume-card {
+    max-width: calc(50% - 5rem);
+    padding: var(--space-lg);
+  }
+}
+
+.resume-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: var(--space-xs);
+}
+
+@media (min-width: 768px) {
+  .resume-card-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+.resume-card-org {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+.resume-card-location {
+  font-size: var(--font-size-xs);
+  color: var(--muted);
+  margin-bottom: var(--space-sm);
+}
+
+.resume-card-description {
+  font-size: var(--font-size-sm);
+  color: var(--foreground);
+  margin-bottom: var(--space-sm);
+  font-style: italic;
+}
+
+.resume-card-skills {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.resume-card-skills li {
+  font-size: var(--font-size-xs);
+  color: var(--muted);
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.resume-card-skills li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .resume-card-skills li {
+    font-size: var(--font-size-sm);
+  }
 }

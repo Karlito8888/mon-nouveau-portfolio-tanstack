@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { navItems } from '../../data'
 import { useScreenSize } from '../../hooks/useScreenSize'
 import { NavButton } from './NavButton'
@@ -15,8 +16,14 @@ const containerVariants = {
 }
 
 export function Navigation() {
+  const [isMounted, setIsMounted] = useState(false)
   const size = useScreenSize()
   const angleIncrement = 360 / navItems.length
+
+  // Avoid hydration mismatch by only rendering positioned nav after mount
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Responsive radius calculation
   const isLarge = size >= 1024
@@ -31,6 +38,17 @@ export function Navigation() {
       : isSmall
         ? 'calc(40vw - 1rem)'
         : 'calc(38vw - 0.5rem)' // Extra small screens
+
+  // Don't render positioned navigation until client-side hydration is complete
+  if (!isMounted) {
+    return (
+      <nav className="navigation-container" aria-label="Main navigation">
+        <div className="navigation-circle" style={{ opacity: 0 }}>
+          {/* Placeholder to prevent layout shift */}
+        </div>
+      </nav>
+    )
+  }
 
   return (
     <nav className="navigation-container" aria-label="Main navigation">

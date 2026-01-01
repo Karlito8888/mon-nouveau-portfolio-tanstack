@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SubpagesRouteImport } from './routes/_subpages'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SubpagesResumeRouteImport } from './routes/_subpages/resume'
 import { Route as SubpagesProjectsRouteImport } from './routes/_subpages/projects'
 import { Route as SubpagesContactRouteImport } from './routes/_subpages/contact'
 import { Route as SubpagesAboutRouteImport } from './routes/_subpages/about'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SubpagesResumeRoute = SubpagesResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => SubpagesRoute,
 } as any)
 const SubpagesProjectsRoute = SubpagesProjectsRouteImport.update({
   id: '/projects',
@@ -45,12 +51,14 @@ export interface FileRoutesByFullPath {
   '/about': typeof SubpagesAboutRoute
   '/contact': typeof SubpagesContactRoute
   '/projects': typeof SubpagesProjectsRoute
+  '/resume': typeof SubpagesResumeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof SubpagesAboutRoute
   '/contact': typeof SubpagesContactRoute
   '/projects': typeof SubpagesProjectsRoute
+  '/resume': typeof SubpagesResumeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +67,13 @@ export interface FileRoutesById {
   '/_subpages/about': typeof SubpagesAboutRoute
   '/_subpages/contact': typeof SubpagesContactRoute
   '/_subpages/projects': typeof SubpagesProjectsRoute
+  '/_subpages/resume': typeof SubpagesResumeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/projects'
+  fullPaths: '/' | '/about' | '/contact' | '/projects' | '/resume'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/projects'
+  to: '/' | '/about' | '/contact' | '/projects' | '/resume'
   id:
     | '__root__'
     | '/'
@@ -72,6 +81,7 @@ export interface FileRouteTypes {
     | '/_subpages/about'
     | '/_subpages/contact'
     | '/_subpages/projects'
+    | '/_subpages/resume'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,6 +104,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_subpages/resume': {
+      id: '/_subpages/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof SubpagesResumeRouteImport
+      parentRoute: typeof SubpagesRoute
     }
     '/_subpages/projects': {
       id: '/_subpages/projects'
@@ -123,12 +140,14 @@ interface SubpagesRouteChildren {
   SubpagesAboutRoute: typeof SubpagesAboutRoute
   SubpagesContactRoute: typeof SubpagesContactRoute
   SubpagesProjectsRoute: typeof SubpagesProjectsRoute
+  SubpagesResumeRoute: typeof SubpagesResumeRoute
 }
 
 const SubpagesRouteChildren: SubpagesRouteChildren = {
   SubpagesAboutRoute: SubpagesAboutRoute,
   SubpagesContactRoute: SubpagesContactRoute,
   SubpagesProjectsRoute: SubpagesProjectsRoute,
+  SubpagesResumeRoute: SubpagesResumeRoute,
 }
 
 const SubpagesRouteWithChildren = SubpagesRoute._addFileChildren(

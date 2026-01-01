@@ -1,7 +1,7 @@
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { memo, useMemo, useRef } from 'react'
-import type { Group } from 'three'
+import { MathUtils, type Group } from 'three'
 
 interface HatModelProps {
   position?: [number, number, number]
@@ -11,7 +11,7 @@ interface HatModelProps {
 
 /**
  * HatModel 3D model component for the about page
- * Features continuous Y-axis rotation animation
+ * Features continuous Y-axis rotation and smooth scale-in entrance
  */
 export const HatModel = memo(function HatModel({
   position = [0, 0, 0],
@@ -20,14 +20,29 @@ export const HatModel = memo(function HatModel({
 }: HatModelProps) {
   const { scene } = useGLTF('/models/hat-transformed.glb')
   const modelRef = useRef<Group>(null)
+  const currentScaleRef = useRef(0.01) // Start nearly invisible
 
   // Clone the scene to avoid shared state issues on remount
   const clonedScene = useMemo(() => scene.clone(), [scene])
 
-  // Continuous rotation animation
-  useFrame(() => {
+  // Target scale (normalize to number)
+  const targetScale = typeof scale === 'number' ? scale : scale[0]
+
+  // Continuous rotation + progressive scale-in animation
+  useFrame((_, delta) => {
     if (modelRef.current) {
+      // Rotation animation
       modelRef.current.rotation.y += 0.007
+
+      // Progressive scale animation with smooth lerp
+      currentScaleRef.current = MathUtils.lerp(
+        currentScaleRef.current,
+        targetScale,
+        delta * 0.8
+      )
+
+      const s = currentScaleRef.current
+      modelRef.current.scale.set(s, s, s)
     }
   })
 
@@ -36,7 +51,7 @@ export const HatModel = memo(function HatModel({
       ref={modelRef}
       object={clonedScene}
       position={position}
-      scale={scale}
+      scale={0.01} // Initial scale, will be animated
       rotation={rotation}
       dispose={null}
     />

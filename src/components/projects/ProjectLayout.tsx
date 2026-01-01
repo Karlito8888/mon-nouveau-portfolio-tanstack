@@ -30,7 +30,7 @@ export function ProjectLayout({ name, description, date, demoLink }: ProjectLayo
         <p className="project-description">{description}</p>
       </div>
       <div className="project-card-divider" />
-      <p className="project-date">{new Date(date).toDateString()}</p>
+      <p className="project-date">{new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
     </motion.a>
   )
 }

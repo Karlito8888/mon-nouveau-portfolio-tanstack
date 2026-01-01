@@ -39,7 +39,6 @@ export function RenderModel({ children, className }: RenderModelProps) {
       }}
     >
       <Suspense fallback={null}>
-        {/* Environment provides ambient lighting */}
         <Environment preset="dawn" />
         {children}
       </Suspense>
