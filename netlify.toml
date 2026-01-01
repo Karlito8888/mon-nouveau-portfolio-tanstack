@@ -2,7 +2,7 @@
 # The @netlify/vite-plugin-tanstack-start handles the build automatically
 
 [build]
-  command = "bun run build"
+  command = "curl -fsSL https://bun.sh/install | bash && ~/.bun/bin/bun install && ~/.bun/bin/bun run build"
   publish = ".output/public"
 
 [build.environment]
