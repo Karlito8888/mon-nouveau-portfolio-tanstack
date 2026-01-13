@@ -26,10 +26,73 @@ export const Route = createRootRoute({
       },
       {
         name: "description",
+        content: "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
+      },
+      {
+        name: "theme-color",
+        content: "#1B1B1B",
+      },
+      {
+        name: "author",
+        content: "Charles Bourgault",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:title",
+        content: "Charles Bourgault | Portfolio",
+      },
+      {
+        property: "og:description",
+        content: "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
+      },
+      {
+        property: "og:image",
+        content: "/favicon-512x512.png",
+      },
+      {
+        name: "twitter:card",
+        content: "summary",
+      },
+      {
+        name: "twitter:title",
+        content: "Charles Bourgault | Portfolio",
+      },
+      {
+        name: "twitter:description",
         content: "Creative portfolio showcasing web development projects",
       },
     ],
     links: [
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/favicon.ico",
+      },
+      {
+        rel: "icon",
+        type: "image/svg+xml",
+        href: "/favicon.svg",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "192x192",
+        href: "/favicon-192x192.png",
+      },
       {
         rel: "stylesheet",
         href: globalsCss,

@@ -22,6 +22,9 @@ const config = defineConfig({
     }),
     netlify(),
   ],
+  build: {
+    sourcemap: true,
+  },
 })
 
 export default config
