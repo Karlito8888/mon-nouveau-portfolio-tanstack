@@ -1,10 +1,5 @@
-import { ClientOnly } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { Navigation } from "../components/navigation";
-
-// Lazy load the entire RenderModel + Wizard to prevent SSR issues
-const WizardScene = lazy(() => import("../components/scenes/WizardScene"));
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -38,14 +33,7 @@ function HomePage() {
         />
       </picture>
 
-      {/* 3D Wizard model - client only with lazy loading */}
-      <div className="home-canvas-container">
-        <ClientOnly fallback={null}>
-          <Suspense fallback={null}>
-            <WizardScene />
-          </Suspense>
-        </ClientOnly>
-      </div>
+      {/* 3D Wizard model is now handled by SceneManager in __root.tsx */}
     </main>
   );
 }

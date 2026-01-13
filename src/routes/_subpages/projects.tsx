@@ -1,10 +1,6 @@
-import { ClientOnly } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { ProjectList } from "../../components/projects";
 import { projectsData } from "../../data";
-
-const StaffScene = lazy(() => import("../../components/scenes/StaffScene"));
 
 export const Route = createFileRoute("/_subpages/projects")({
   component: ProjectsPage,
@@ -34,14 +30,7 @@ function ProjectsPage() {
         />
       </picture>
 
-      {/* 3D Staff model - fixed position */}
-      <div className="projects-model-container">
-        <ClientOnly fallback={null}>
-          <Suspense fallback={null}>
-            <StaffScene />
-          </Suspense>
-        </ClientOnly>
-      </div>
+      {/* 3D Staff model is now handled by SceneManager in __root.tsx */}
 
       {/* Projects list */}
       <div className="subpage-content">

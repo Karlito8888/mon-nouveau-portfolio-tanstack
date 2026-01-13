@@ -759,6 +759,75 @@ select {
 }
 
 /* ============================================
+   PERSISTENT SCENE MANAGER
+   Single Canvas that persists across routes
+   ============================================ */
+
+.scene-container {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Home page - full screen centered */
+.scene-container--home {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* About page - positioned right on desktop, centered on mobile */
+.scene-container--about {
+  top: 5rem;
+  right: 0;
+  width: 50%;
+  height: calc(100vh - 5rem);
+  height: calc(100dvh - 5rem);
+}
+
+@media (max-width: 1023px) {
+  .scene-container--about {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    width: min(100%, 25rem);
+    height: min(50vh, 20rem);
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Projects page - left half on desktop, top half on mobile */
+.scene-container--projects {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40vh;
+  height: 40dvh;
+}
+
+@media (min-width: 768px) {
+  .scene-container--projects {
+    height: 50vh;
+    height: 50dvh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scene-container--projects {
+    width: 50%;
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+/* Hidden state - when no model should be shown */
+.scene-container--hidden {
+  display: none;
+}
+
+/* ============================================
    HOME BUTTON (Sub-pages)
    ============================================ */
 

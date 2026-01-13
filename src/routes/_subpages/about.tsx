@@ -1,9 +1,5 @@
-import { ClientOnly } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { AboutDetails } from "../../components/about";
-
-const HatScene = lazy(() => import("../../components/scenes/HatScene"));
 
 export const Route = createFileRoute("/_subpages/about")({
   component: AboutPage,
@@ -33,14 +29,7 @@ function AboutPage() {
         />
       </picture>
 
-      {/* 3D HatModel - fixed position */}
-      <div className="about-model-container">
-        <ClientOnly fallback={null}>
-          <Suspense fallback={null}>
-            <HatScene />
-          </Suspense>
-        </ClientOnly>
-      </div>
+      {/* 3D HatModel is now handled by SceneManager in __root.tsx */}
 
       {/* About content */}
       <div className="subpage-content">

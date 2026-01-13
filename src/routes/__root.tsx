@@ -1,4 +1,5 @@
 import {
+  ClientOnly,
   HeadContent,
   Scripts,
   createRootRoute,
@@ -6,10 +7,18 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
+import { lazy, Suspense } from "react";
 
 import { FireFliesBackground } from "../components/FireFliesBackground";
 import { Sound } from "../components/Sound";
 import globalsCss from "../styles/globals.css?url";
+
+// Lazy load SceneManager to prevent SSR issues with Three.js
+const SceneManager = lazy(() =>
+  import("../components/scenes/SceneManager").then((mod) => ({
+    default: mod.SceneManager,
+  })),
+);
 
 export const Route = createRootRoute({
   head: () => ({
@@ -147,6 +156,14 @@ function RootComponent() {
     <div className="min-h-screen relative">
       <FireFliesBackground />
       <Sound />
+
+      {/* Persistent 3D Canvas - stays mounted across all routes */}
+      <ClientOnly fallback={null}>
+        <Suspense fallback={null}>
+          <SceneManager />
+        </Suspense>
+      </ClientOnly>
+
       <Outlet />
     </div>
   );
