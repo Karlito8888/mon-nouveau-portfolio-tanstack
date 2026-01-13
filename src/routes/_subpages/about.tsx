@@ -17,8 +17,11 @@ function AboutPage() {
           type="image/webp"
           srcSet="
             /background/about-background-480w.webp 480w,
+            /background/about-background-640w.webp 640w,
             /background/about-background-768w.webp 768w,
-            /background/about-background-1024w.webp 1024w
+            /background/about-background-1024w.webp 1024w,
+            /background/about-background-1366w.webp 1366w,
+            /background/about-background-1920w.webp 1920w
           "
           sizes="100vw"
         />

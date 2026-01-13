@@ -14,8 +14,11 @@ function ResumePage() {
           type="image/webp"
           srcSet="
             /background/projects-background-480w.webp 480w,
+            /background/projects-background-640w.webp 640w,
             /background/projects-background-768w.webp 768w,
-            /background/projects-background-1024w.webp 1024w
+            /background/projects-background-1024w.webp 1024w,
+            /background/projects-background-1366w.webp 1366w,
+            /background/projects-background-1920w.webp 1920w
           "
           sizes="100vw"
         />
