@@ -35,7 +35,8 @@ export const Route = createRootRoute({
       },
       {
         name: "description",
-        content: "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
+        content:
+          "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
       },
       {
         name: "theme-color",
@@ -55,7 +56,8 @@ export const Route = createRootRoute({
       },
       {
         property: "og:description",
-        content: "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
+        content:
+          "Creative portfolio showcasing web development projects with React, Three.js and modern technologies",
       },
       {
         property: "og:image",
