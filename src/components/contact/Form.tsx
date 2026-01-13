@@ -1,5 +1,6 @@
-import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 
 const container = {
@@ -36,22 +37,31 @@ export function Form() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (_data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     const toastId = toast.loading("Sending your message, please wait...");
 
-    // Demo mode - show info message
-    toast.info(
-      "Form submissions are demo-only. Contact me via email for real inquiries.",
-      { id: toastId },
-    );
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          to_name: "Charles",
+          from_name: data.name,
+          reply_to: data.email,
+          message: data.message,
+        },
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY },
+      );
 
-    // TODO: Enable EmailJS integration
-    // emailjs.send(
-    //   process.env.PUBLIC_SERVICE_ID,
-    //   process.env.PUBLIC_TEMPLATE_ID,
-    //   { to_name: 'Charles', from_name: data.name, reply_to: data.email, message: data.message },
-    //   { publicKey: process.env.PUBLIC_PUBLIC_KEY }
-    // )
+      toast.success("Message sent successfully! I'll get back to you soon.", {
+        id: toastId,
+      });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast.error("Failed to send message. Please try again later.", {
+        id: toastId,
+      });
+    }
   };
 
   return (
