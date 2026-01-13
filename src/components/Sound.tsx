@@ -48,7 +48,7 @@ export function Sound() {
   return (
     <div className="sound-container">
       <audio ref={audioRef} loop>
-        <source src="/audio/birds39-forest-20772.mp3" type="audio/mpeg" />
+        <source src="/audio/birds-ambient.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
