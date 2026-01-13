@@ -159,7 +159,7 @@ export const projectsData: Project[] = [
     description:
       "Community app for Garden Grove Village with chat, forums, marketplace, and local services",
     date: "2026-01",
-    demoLink: "#coming-soon",
+    demoLink: "https://myggv.com/",
     image: "/projects/myggv-app.png",
   },
   {
