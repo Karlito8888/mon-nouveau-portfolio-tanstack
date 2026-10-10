@@ -20,7 +20,9 @@ const config = defineConfig({
         ],
       },
     }),
-    netlify(),
+    // No edge functions in this project; Netlify's emulator crashes on Deno 2.9
+    // (`deno eval` rejects the `--allow-scripts` flag it passes).
+    netlify({ dev: { edgeFunctions: { enabled: false } } }),
   ],
   build: {
     sourcemap: true,
