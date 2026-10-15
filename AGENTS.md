@@ -88,11 +88,10 @@ compatibility written by `vp migrate`): no `environment: 'jsdom'`, no `setupFile
 
 ## Pièges propres à ce dépôt
 
-- **The formatter is Oxfmt (`vp fmt`), and the code was never formatted with it**: Oxfmt's
-  default line width is 100 where the code follows Prettier's 80, so `vp check` reports
-  22 files (`src/`, `examples/`, the `.md` docs, `netlify.toml`) and stops there. `vp check
-  --fix` would rewrite them all; it is a deliberate style commit, never a side effect of
-  another change. `prettier` is installed nowhere.
+- **The formatter is Oxfmt (`vp fmt`, run by `vp check`)**, set to Prettier's width
+  (`fmt.printWidth: 80`) because the code was written at 80; Oxfmt's default is 100. The
+  `.md` docs, `examples/` and `netlify.toml` are in `fmt.ignorePatterns`: no tool ever
+  formatted them. `prettier` is installed nowhere.
 - `.env` n'existe que dans **une** des deux copies locales (voir fiche de bank) : ne jamais
   supposer sa présence, le lire avant d'en dépendre.
 - Le gate ne peut pas passer en l'état (voir plus haut) : `bun run gate` échoue tant qu'un

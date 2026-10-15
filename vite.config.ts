@@ -6,7 +6,11 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import netlify from "@netlify/vite-plugin-tanstack-start";
 
 const config = defineConfig({
-  fmt: {},
+  fmt: {
+    printWidth: 80,
+    // Never formatted by any tool before Vite+; keep their hand layout.
+    ignorePatterns: ["**/*.md", "examples/**", "netlify.toml"],
+  },
   lint: {
     plugins: ["oxc", "typescript", "unicorn"],
     categories: {
