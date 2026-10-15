@@ -21,31 +21,30 @@ commits qui divergent entre eux, vit dans la fiche de bank — ne pas le redédu
 
 ## Stack
 
-TanStack Router `^1.147.3` · TanStack Start `^1.149.2` · React `^19.2.3` · Vite `^7.3.1` ·
-TypeScript `^5.9.3` · Three.js `^0.177.0` + `@react-three/fiber` `^9.5.0` +
+TanStack Router `^1.147.3` · TanStack Start `^1.149.2` · React `^19.2.3` · Vite+ `1.2.0`
+(`vite-plus`: Vite 8 through the `vite` → `@voidzero-dev/vite-plus-core` alias, Vitest 5, Oxlint,
+Oxfmt) · TypeScript `^5.9.3` · Three.js `^0.177.0` + `@react-three/fiber` `^9.5.0` +
 `@react-three/drei` `^10.7.7` · Framer Motion `^12.26.2` · React Compiler
-(`babel-plugin-react-compiler`, branché dans `vite.config.ts`) · Bun (runtime, paquets, bundler).
+(`babel-plugin-react-compiler`, branché dans `vite.config.ts`) · Bun (runtime, paquets).
 
 ## Commandes (`package.json`)
 
-- `bun run dev` — `vite dev --port 3000`
-- `bun run build` — `vite build`
-- `bun run preview` — `vite preview`
+- `bun run dev` — `vp dev --port 3000`
+- `bun run build` — `vp build`
+- `bun run preview` — `vp preview`
 - `bun run typecheck` — `tsc --noEmit`
-- `bun run lint` — `eslint src/`
-- `bun run test` — `vitest run`
+- `bun run lint` — `vp lint src/` (Oxlint; rules live in the `lint` block of `vite.config.ts`,
+  translated from the former ESLint `js` + `typescript-eslint` recommended config)
+- `bun run test` — `vp test run`
 - `bun run gate` — `typecheck && lint && test`, le gate du projet
+- `vp check` — format + lint + type-check in one pass; see the formatter trap below
 
-## ⚠️ Gate structurellement rouge — deux causes mesurées
+## ⚠️ Gate structurellement rouge
 
-1. **`node_modules` n'est pas installé** : `bun run test` sort en **127**, `vitest` introuvable.
-   `vitest ^3.2.4` est bien déclaré en devDependency, juste pas installé.
-2. **`src/` ne contient aucun fichier de test** (`*.test.*` / `*.spec.*`, recherche exhaustive).
-   Même `node_modules` installé, `vitest run` sortirait en 1 sur « No test files found ».
-
-`vite.config.ts` ne déclare d'ailleurs **aucun bloc `test`** (pas de `environment: 'jsdom'`,
-pas de `setupFiles`) — alors que `jsdom` et `@testing-library/*` sont en devDependencies. Un
-premier test devra créer ce bloc lui-même, il n'existe pas encore.
+**`src/` contains no test file** (`*.test.*` / `*.spec.*`): `vp test run` exits 1 on "No test
+files found". `vite.config.ts` has a `test` block holding only `clearMocks: false` (Vitest 4
+compatibility written by `vp migrate`): no `environment: 'jsdom'`, no `setupFiles`, although
+`jsdom` and `@testing-library/*` are devDependencies. The first test adds them.
 
 ## Layout `src/`
 
@@ -89,11 +88,12 @@ premier test devra créer ce bloc lui-même, il n'existe pas encore.
 
 ## Pièges propres à ce dépôt
 
-- **`prettier` n'est dans aucune devDependency** malgré un `.prettierignore` committé
-  (`dist/`, `node_modules/`, `.vinxi/`, `.output/`, `src/routeTree.gen.ts`) — la commande n'existe
-  nulle part dans les scripts. Ne pas supposer qu'un `bunx prettier` local est équipé sans
-  vérifier le réseau.
+- **The formatter is Oxfmt (`vp fmt`), and the code was never formatted with it**: Oxfmt's
+  default line width is 100 where the code follows Prettier's 80, so `vp check` reports
+  22 files (`src/`, `examples/`, the `.md` docs, `netlify.toml`) and stops there. `vp check
+  --fix` would rewrite them all; it is a deliberate style commit, never a side effect of
+  another change. `prettier` is installed nowhere.
 - `.env` n'existe que dans **une** des deux copies locales (voir fiche de bank) : ne jamais
   supposer sa présence, le lire avant d'en dépendre.
-- Le gate ne peut pas passer en l'état (voir plus haut) : `bun run gate` échouera systématiquement
-  tant que `bun install` n'a pas tourné **et** qu'un premier test n'existe pas.
+- Le gate ne peut pas passer en l'état (voir plus haut) : `bun run gate` échoue tant qu'un
+  premier test n'existe pas.
