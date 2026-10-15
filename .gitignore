@@ -95,3 +95,4 @@ graphify-out/
 # Archon : seul config.yaml est partagé ; artifacts/, logs/ et state/ sont locaux.
 .archon/*
 !.archon/config.yaml
+.vitest/
