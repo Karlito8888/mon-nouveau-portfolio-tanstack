@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { JOURNEY, PAGES } from "../site";
+---
+
+<Base {...PAGES.journey} bg="projects">
+  <main class="page page--journey">
+    <h1 data-reveal>Our journey</h1>
+    <div class="journey">
+      {
+        JOURNEY.map(({ period, title, place, text, type }, i) => (
+          <div class={`journey-item journey-item--${i % 2 ? "right" : "left"}`} data-reveal style={`--d:${i + 1}`}>
+            <div class="journey-period">{period}</div>
+            <div class={`journey-dot journey-dot--${type}`}>
+              <Icon name={type} />
+            </div>
+            <div class="journey-text">
+              <h3>{title}</h3>
+              <p class="journey-place">{place}</p>
+              <p class="journey-desc">{text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Base>

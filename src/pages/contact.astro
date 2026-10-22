@@ -1,0 +1,45 @@
+---
+import Base from "../layouts/Base.astro";
+import { CONTACT, PAGES } from "../site";
+---
+
+<Base {...PAGES.contact} bg="contact">
+  <main class="page page--contact">
+    <h1 data-reveal>{CONTACT.title}</h1>
+    <p class="lead" data-reveal style="--d:1">{CONTACT.intro}</p>
+    <form class="contact-form" data-astro-reload data-reveal style="--d:2">
+      <label class="sr-only" for="name">Name</label>
+      <input
+        id="name"
+        class="contact-input glass"
+        name="name"
+        type="text"
+        placeholder="name"
+        required
+        minlength="3"
+        autocomplete="name"
+      />
+      <label class="sr-only" for="email">Email</label>
+      <input
+        id="email"
+        class="contact-input glass"
+        name="email"
+        type="email"
+        placeholder="email"
+        required
+        autocomplete="email"
+      />
+      <label class="sr-only" for="message">Message</label>
+      <textarea
+        id="message"
+        class="contact-textarea glass"
+        name="message"
+        placeholder="message"
+        required
+        minlength="50"
+        maxlength="500"></textarea>
+      <button class="contact-submit glass" type="submit">{CONTACT.submit}</button>
+      <p class="contact-status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+</Base>

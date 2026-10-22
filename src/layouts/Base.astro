@@ -1,0 +1,109 @@
+---
+import { Font, Picture } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import Icon from "../components/Icon.astro";
+import { SITE } from "../site";
+import home from "../assets/backgrounds/home.png";
+import about from "../assets/backgrounds/about.png";
+import projects from "../assets/backgrounds/projects.png";
+import contact from "../assets/backgrounds/contact.png";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  bg: "home" | "about" | "projects" | "contact";
+  noindex?: boolean;
+};
+const { title, description, bg, noindex } = Astro.props;
+const backgrounds = { home, about, projects, contact };
+const path = Astro.url.pathname.replace(/(index)?\.html$/, ""); // build.format "file" leaves the extension in the pathname
+const isHome = path === "/";
+const canonical = new URL(path, SITE.url).href;
+
+const rand = (min: number, max: number) => min + Math.random() * (max - min);
+const fireflies = Array.from({ length: 15 }, () => ({
+  top: rand(0, 100),
+  left: rand(0, 100),
+  t: rand(5, 10),
+  delay: rand(-5, 0),
+  dx: Math.round(rand(-120, 120)),
+  dy: Math.round(rand(-120, 120)),
+}));
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#1b1b1b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE.url}/favicon-512x512.png`} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon-192x192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <Font cssVariable="--font-display" preload={[{ weight: 400, style: "normal", subset: "latin" }]} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Picture
+      src={backgrounds[bg]}
+      alt=""
+      formats={["avif", "webp"]}
+      widths={[480, 768, 1024]}
+      fallbackFormat="webp"
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class={isHome ? "page-bg page-bg--home" : "page-bg"}
+    />
+    <div class="fireflies" aria-hidden="true" transition:persist="fireflies">
+      {
+        fireflies.map((f) => (
+          <span
+            class="firefly"
+            style={`top:${f.top}%;left:${f.left}%;--t:${f.t}s;--delay:${f.delay}s;--dx:${f.dx}px;--dy:${f.dy}px`}
+          />
+        ))
+      }
+    </div>
+    <div class="sound" transition:persist="sound">
+      <audio id="ambient" src="/audio/birds-ambient.mp3" loop preload="none"></audio>
+      <button class="sound-btn glass" type="button" aria-pressed="false" aria-label="Play ambient sound">
+        <Icon name="volume-on" class="icon-on" />
+        <Icon name="volume-off" class="icon-off" />
+      </button>
+    </div>
+    {
+      !isHome && (
+        <a class="home-btn glass" href="/" aria-label="Home">
+          <Icon name="house" />
+          <span class="tooltip" aria-hidden="true">
+            Home
+          </span>
+        </a>
+      )
+    }
+    <slot />
+    <footer class={isHome ? "site-footer site-footer--home" : "site-footer"}>
+      <p>
+        {SITE.concept} <a href="https://charmaweb.com">Built with Astro by CharmaWeb</a> · <a href="/credits">Credits</a>
+      </p>
+    </footer>
+    <script>
+      import "../scripts/main";
+    </script>
+  </body>
+</html>

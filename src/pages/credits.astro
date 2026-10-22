@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import { CODEBUCKS_LICENCE, CREDITS, PAGES } from "../site";
+---
+
+<Base {...PAGES.credits} bg="about">
+  <main class="page page--credits">
+    <h1 data-reveal>Credits</h1>
+    <ol class="rows">
+      {
+        CREDITS.map(({ work, author, href, licence, licenceHref, note }, i) => (
+          <li class="row" data-reveal style={`--d:${i + 1}`}>
+            <span class="row-index">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h2>
+                <a href={href}>{work}</a>
+              </h2>
+              <p>
+                by {author} · <a href={licenceHref}>{licence}</a>
+              </p>
+              <p class="row-meta">{note}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <details id="codebucks-licence" data-reveal style="--d:7">
+      <summary>MIT License, CodeBucks</summary>
+      <pre>{CODEBUCKS_LICENCE}</pre>
+    </details>
+  </main>
+</Base>

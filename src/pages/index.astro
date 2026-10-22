@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { NAV, PAGES, SITE } from "../site";
+---
+
+<Base {...PAGES.home} bg="home">
+  <main class="home">
+    <canvas class="scene scene--wizard" data-shape="wizard" aria-hidden="true"></canvas>
+    <nav class="nav-circle" aria-label="Main">
+      <ul class="nav-ring" style={`--n:${NAV.length}`}>
+        {
+          NAV.map(({ label, href, icon }, i) => (
+            <li style={`--i:${i}`}>
+              <a class="nav-link glass" href={href} aria-label={label}>
+                <Icon name={icon} />
+                <span class="tooltip" aria-hidden="true">
+                  {label}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="home-title">
+      <h1>{SITE.name}</h1>
+      <p>{SITE.tagline}</p>
+    </div>
+  </main>
+</Base>

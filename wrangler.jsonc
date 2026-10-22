@@ -1,0 +1,8 @@
+{
+  "name": "grimoire",
+  "compatibility_date": "2026-10-22",
+  "assets": { "directory": "./dist", "not_found_handling": "404-page" },
+  "routes": [{ "pattern": "grimoire.charmaweb.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false
+}

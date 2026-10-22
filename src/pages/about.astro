@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import { ABOUT, PAGES } from "../site";
+---
+
+<Base {...PAGES.about} bg="about">
+  <canvas class="scene scene--hat" data-shape="hat" aria-hidden="true"></canvas>
+  <main class="page page--about">
+    <h1 data-reveal>{ABOUT.title}</h1>
+    {ABOUT.paragraphs.map((text, i) => <p class="lead" data-reveal style={`--d:${i + 1}`}>{text}</p>)}
+    <ul class="figures" data-reveal style="--d:4">
+      {
+        ABOUT.figures.map(({ value, label }) => (
+          <li>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <h2 data-reveal style="--d:5">What we conjure</h2>
+    <ol class="rows">
+      {
+        ABOUT.services.map(({ name, text }, i) => (
+          <li class="row" data-reveal style={`--d:${i + 6}`}>
+            <span class="row-index">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{name}</h3>
+              <p>{text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <h2 data-reveal style="--d:10">Our toolbox</h2>
+    <ul class="chips" data-reveal style="--d:11">
+      {ABOUT.tools.map((tool) => <li>{tool}</li>)}
+    </ul>
+  </main>
+</Base>

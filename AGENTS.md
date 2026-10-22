@@ -1,98 +1,85 @@
-# AGENTS.md — mon-portfolio
+# AGENTS.md — Grimoire (mon-nouveau-portfolio-tanstack)
 
-Consignes pour tout agent de code travaillant dans ce dépôt. **Fait autorité sur le code.**
+Static concept site for Grimoire, a fictional two-person creative web studio set in an
+enchanted forest. Live at `https://grimoire.charmaweb.com`, presented as a side project on
+`https://charmaweb.com/work/grimoire` and `https://charlesbourgault.com`. The folder and the
+GitHub repository keep their historical names.
 
-**Le projet en une phrase :** portfolio personnel créatif — TanStack Start (SSR) + Three.js /
-React Three Fiber pour les modèles 3D, déployé sur Netlify.
+## What is NOT here
 
-## Ce qui n'est PAS ici
-
-| Quoi | Où |
+| What | Where |
 |---|---|
-| Règles de travail générales — vérifier avant d'affirmer, DRY/KISS/YAGNI, périmètre, échelle de doc officielle, outils obligatoires, git, accord explicite | `~/.omp/agent/RULES.md` |
-| Le poste, les graphes de code, les workflows | `~/.omp/agent/AGENTS.md` |
-| Faits durables du projet — versions, gate mesuré, dettes, points ouverts | `~/.omp/agent/bank/Mon-Portfolio.md` |
+| General working rules (verify before claiming, DRY/KISS/YAGNI, scope, docs ladder, mandatory tools, git, explicit agreement) | `~/.omp/agent/RULES.md` |
+| The workstation, the code graphs, the workflows | `~/.omp/agent/AGENTS.md` |
+| Durable project facts (versions, measured gate, debts, open items) | `~/.omp/agent/bank/Mon-Portfolio.md` |
 
-## Deux clones locaux, un seul distant
+## What exists
 
-Ce dossier est l'un de **deux clones locaux** pointant vers le même distant GitHub
-(`Karlito8888/mon-nouveau-portfolio-tanstack`). Lequel des deux fait foi, et le détail des
-commits qui divergent entre eux, vit dans la fiche de bank — ne pas le redéduire ici.
+Seven static pages under `src/pages/`: `index` (circular menu around a wizard drawn by
+fireflies), `about` (hat), `projects` (staff), `journey` (timeline), `contact` (demo form that
+sends nothing), `credits` (licences) and `404`. No backend, no cookies, no analytics. One
+`localStorage` key, `musicConsent`, remembers that the visitor turned the ambient sound on.
 
-## Stack
+## Layout
 
-TanStack Router `^1.147.3` · TanStack Start `^1.149.2` · React `^19.2.3` · Vite+ `1.2.0`
-(`vite-plus`: Vite 8 through the `vite` → `@voidzero-dev/vite-plus-core` alias, Vitest 5, Oxlint,
-Oxfmt) · TypeScript `^5.9.3` · Three.js `^0.177.0` + `@react-three/fiber` `^9.5.0` +
-`@react-three/drei` `^10.7.7` · Framer Motion `^12.26.2` · React Compiler
-(`babel-plugin-react-compiler`, branché dans `vite.config.ts`) · Bun (runtime, paquets).
+- `src/site.ts`: every piece of copy (pages, nav, studio text, projects, journey, contact,
+  credits) and the verbatim CodeBucks MIT licence. Edit copy here, never in a page.
+- `src/layouts/Base.astro`: head (meta, Open Graph, icons, manifest), Madimi One via the Astro
+  fonts API (`--font-display`), `<ClientRouter>` so the sound survives navigation, the painted
+  background (`<Picture>` avif/webp, 480 to 1024 px), 15 CSS fireflies, the sound toggle, the
+  home button on sub-pages, the concept footer, and the single `src/scripts/main` script.
+  `build.format: "file"` leaves `.html` in `Astro.url.pathname`: `path` strips it before the
+  home test and the canonical.
+- `src/components/Icon.astro`: inline Lucide shapes by name (`IconName` in `site.ts`).
+- `src/styles/global.css`: tokens, reset, glass, fireflies, circular menu (pure CSS: `--n`
+  items, `--i` index, `--r` radius per breakpoint, counter-rotated links), scenes, editorial
+  rows, journey timeline, contact form, reveal, reduced motion.
+- `src/scripts/webgl-gate.ts`: starts a three.js scene only without `prefers-reduced-motion`,
+  with WebGL 2, after `load` + idle; pauses it off-screen; swallows failures so the painted
+  background stays; returns a handle with `dispose()`.
+- `src/scripts/firefly-scene.ts`: loads `src/assets/points/<shape>.bin` (int16 xyz in [-1, 1]),
+  scatters the points, gathers them on their targets in 2.4 s (0.8 s stagger), then turns and
+  floats them. Additive gold-to-white dots on a radial canvas texture.
+- `src/scripts/main.ts`: starts one scene per `astro:page-load` and disposes it on
+  `astro:before-swap`; wires the persistent sound toggle once; answers the demo form.
+- `src/assets/backgrounds/*.png`: the four painted forests (1024×576 sources).
+- `src/assets/points/*.bin`: 10,000 (wizard), 3,000 (hat), 3,000 (staff) surface samples.
+- `public/_headers`: security headers, immutable cache on `/_astro/*` and `/audio/*`.
+- `public/audio/birds-ambient.mp3`: 70 s loop, 552 KB, `preload="none"`.
 
-## Commandes (`package.json`)
+## Stack and gate
 
-- `bun run dev` — `vp dev --port 3000`
-- `bun run build` — `vp build`
-- `bun run preview` — `vp preview`
-- `bun run typecheck` — `tsc --noEmit`
-- `bun run lint` — `vp lint src/` (Oxlint; rules live in the `lint` block of `vite.config.ts`,
-  translated from the former ESLint `js` + `typescript-eslint` recommended config)
-- `bun run test` — `vp test run`
-- `bun run gate` — `typecheck && lint && test`, le gate du projet
-- `vp check` — format + lint + type-check in one pass; see the formatter trap below
+Astro 7, TypeScript 6 (`@astrojs/check` refuses TypeScript 7), `@astrojs/sitemap`, `sharp`,
+`three` 0.186 (dynamic import, ~130 kB gzip, only when the scene can run). Never add
+`@types/bun`: it breaks `astro check`. Bun only. Dev and preview on port 4340.
 
-## ⚠️ Gate structurellement rouge
+```
+bun run check   # astro check && astro build
+```
 
-**`src/` contains no test file** (`*.test.*` / `*.spec.*`): `vp test run` exits 1 on "No test
-files found". `vite.config.ts` has a `test` block holding only `clearMocks: false` (Vitest 4
-compatibility written by `vp migrate`): no `environment: 'jsdom'`, no `setupFiles`, although
-`jsdom` and `@testing-library/*` are devDependencies. The first test adds them.
+Pitfall: `astro preview` daemonizes (`astro preview stop` to end it) and serves `dist/`, so
+rebuild before re-testing.
 
-## Layout `src/`
+## Deployment
 
-- `routes/` — TanStack Router file-based : `__root.tsx` (layout racine : nav, fireflies, son),
-  `index.tsx` (accueil, modèle Wizard), `_subpages.tsx` (layout des sous-pages, bouton retour),
-  `_subpages/{about,contact,projects,resume}.tsx`.
-- `components/` — un dossier par feature : `about/`, `contact/`, `navigation/`, `models/`,
-  `projects/`, `resume/`, `scenes/` ; plus `FireFliesBackground.tsx`, `HomeBtn.tsx`, `Sound.tsx`
-  à plat.
-- `components/models/` — composants GLB Three.js (`Wizard`, `HatModel`, `Staff`) : pattern
-  `useGLTF` + `useFrame` + `memo` explicite, `useGLTF.preload` en fin de fichier.
-- `components/scenes/SceneManager.tsx` — décide quelle scène 3D est montée selon la route.
-- `data/index.ts` — données statiques (items de nav, projets…).
-- `hooks/useScreenSize.ts`.
-- `styles/globals.css` — custom properties CSS, pas de Tailwind.
+Push to `main` → `.github/workflows/deploy.yml` → `bun run check` → `wrangler deploy` → Worker
+`grimoire` (static assets only) on custom domain `grimoire.charmaweb.com`, Cloudflare account
+`charmaweb11@gmail.com`. Repository secret `CLOUDFLARE_API_TOKEN` (same token as CharmaWeb,
+`charmaweb-setup-deploy`), variable `CLOUDFLARE_ACCOUNT_ID`.
 
-## Déploiement Netlify (`netlify.toml`)
+## Rules for the 3D scene
 
-- `build.command = "bun run build"`, `publish = "dist/client"`, `NODE_VERSION = "22"` fixé.
-- `@netlify/vite-plugin-tanstack-start` gère l'intégration SSR côté build, pas de config manuelle
-  de functions.
-- Headers de cache `immutable, max-age=31536000` sur `/assets/*`, `/models/*`, `/background/*`,
-  `/audio/*`, `*.woff2`.
-- Headers de sécurité globaux sur `/*` : `X-Frame-Options: DENY`, `X-Content-Type-Options:
-  nosniff`, `X-XSS-Protection`, `Referrer-Policy: strict-origin-when-cross-origin`.
+- The point clouds are area-weighted surface samples of the CC BY models kept in git at
+  `d13cf53:public/models/*.glb` (gltf-transform read, triangles with max y ≤ 0.5 dropped for the
+  wizard to remove its pedestal, points centred and scaled to a half-extent of 1, int16). To
+  regenerate them, restore that commit's `node_modules` and the method above.
+- `DOT_PX` in `firefly-scene.ts` is the only size knob. Mobile (< 768 px) draws 60 % of the
+  points at pixel ratio 1; desktop caps the ratio at 1.5.
+- `prefers-reduced-motion: reduce` means no scene, no menu rotation, no fireflies, no reveal.
 
-## Conventions observées
+## Copy rules
 
-- JSDoc et contenu UI **en anglais** (ex. `data/index.ts`, toasts de `Form.tsx`).
-- Double quotes + points-virgules, `interface` pour les props/types de données (pas `type`).
-- Imports externes puis internes ; alias `@/` → `src/` (`tsconfig.json` `paths` +
-  `vite-tsconfig-paths`).
-- **React Compiler actif** : pas de `useMemo`/`useCallback` manuel en général — **sauf** dans les
-  composants Three.js (`components/models/`), où `memo` explicite et `useMemo` restent
-  nécessaires pour `useFrame` (vérifié dans `Wizard.tsx`). Ne pas « nettoyer » ces memo.
-
-## Variables d'environnement (`.env.example`, jamais de valeur)
-
-`VITE_GITHUB_STATS_URL`, `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`,
-`VITE_EMAILJS_PUBLIC_KEY`.
-
-## Pièges propres à ce dépôt
-
-- **The formatter is Oxfmt (`vp fmt`, run by `vp check`)**, set to Prettier's width
-  (`fmt.printWidth: 80`) because the code was written at 80; Oxfmt's default is 100. The
-  `.md` docs, `examples/` and `netlify.toml` are in `fmt.ignorePatterns`: no tool ever
-  formatted them. `prettier` is installed nowhere.
-- `.env` n'existe que dans **une** des deux copies locales (voir fiche de bank) : ne jamais
-  supposer sa présence, le lire avant d'en dépendre.
-- Le gate ne peut pas passer en l'état (voir plus haut) : `bun run gate` échoue tant qu'un
-  premier test n'existe pas.
+English only. No em dash in user-facing text (full stop, colon or comma). The concept footer
+("Grimoire is a fictional studio", "Built with Astro by CharmaWeb", link to `/credits`) and the
+`/credits` page must stay: the models are CC BY 4.0 and the backgrounds and concept are MIT,
+both require attribution.

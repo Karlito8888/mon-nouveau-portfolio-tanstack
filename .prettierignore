@@ -1,5 +1,4 @@
 dist/
 node_modules/
-.vinxi/
-.output/
-src/routeTree.gen.ts
+.astro/
+*-out/

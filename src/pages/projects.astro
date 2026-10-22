@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import { PAGES, PROJECTS } from "../site";
+---
+
+<Base {...PAGES.projects} bg="projects">
+  <canvas class="scene scene--staff" data-shape="staff" aria-hidden="true"></canvas>
+  <main class="page page--projects">
+    <h1 data-reveal>Selected projects</h1>
+    <ol class="rows">
+      {
+        PROJECTS.map(({ name, kind, year, text }, i) => (
+          <li class="row" data-reveal style={`--d:${i + 1}`}>
+            <span class="row-index">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h2>{name}</h2>
+              <p class="row-meta">
+                {kind} · {year}
+              </p>
+              <p>{text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </main>
+</Base>
