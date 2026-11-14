@@ -169,7 +169,11 @@ a:focus-visible .tooltip {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(253, 255, 80, 0.5) 0%, rgba(217, 217, 217, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(253, 255, 80, 0.5) 0%,
+    rgba(217, 217, 217, 0) 100%
+  );
   animation:
     firefly-move var(--t) ease-in-out infinite alternate,
     firefly-glow calc(var(--t) / 2) ease-in-out var(--delay) infinite alternate;

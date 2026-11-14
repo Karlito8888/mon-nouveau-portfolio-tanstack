@@ -51,18 +51,23 @@ sends nothing), `credits` (licences) and `404`. No backend, no cookies, no analy
 
 Astro 7, TypeScript 6 (`@astrojs/check` refuses TypeScript 7), `@astrojs/sitemap`, `sharp`,
 `three` 0.186 (dynamic import, ~130 kB gzip, only when the scene can run). Never add
-`@types/bun`: it breaks `astro check`. Bun only. Dev and preview on port 4340.
+`@types/bun`: it breaks `astro check`. Vite+ (`vp install`, `vp run`; Bun underneath, `bun.lock`
+the one lockfile). Dev and preview on port 4340.
 
 ```
-bun run check   # astro check && astro build
+vp run gate   # astro check && vp check && astro build
 ```
+
+`vp check` formats with Oxfmt and lints with Oxlint (type-aware) from `vite.config.ts`;
+`.astro` files are covered by `astro check` only. Hooks live in `.vite-hooks/` (`vp staged`
+on pre-commit, graphify's rebuild hooks delegated).
 
 Pitfall: `astro preview` daemonizes (`astro preview stop` to end it) and serves `dist/`, so
 rebuild before re-testing.
 
 ## Deployment
 
-Push to `main` → `.github/workflows/deploy.yml` → `bun run check` → `wrangler deploy` → Worker
+Push to `main` → `.github/workflows/deploy.yml` → `vp run gate` → `wrangler deploy` → Worker
 `grimoire` (static assets only) on custom domain `grimoire.charmaweb.com`, Cloudflare account
 `charmaweb11@gmail.com`. Repository secret `CLOUDFLARE_API_TOKEN` (same token as CharmaWeb,
 `charmaweb-setup-deploy`), variable `CLOUDFLARE_ACCOUNT_ID`.

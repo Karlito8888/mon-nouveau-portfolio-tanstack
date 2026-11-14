@@ -8,7 +8,7 @@ document.addEventListener("astro:page-load", () => {
   scene = canvas ? startWhenIdle(canvas, () => import("./firefly-scene")) : null;
 });
 document.addEventListener("astro:before-swap", () => {
-  scene?.then((s) => s?.dispose());
+  void scene?.then((s) => s?.dispose());
   scene = null;
 });
 

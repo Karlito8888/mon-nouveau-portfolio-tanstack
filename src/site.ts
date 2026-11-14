@@ -188,7 +188,8 @@ export const JOURNEY: {
 
 export const CONTACT = {
   title: "Send us an owl",
-  intro: "Tell us about the world you want to build. This is a demo form: nothing is sent anywhere.",
+  intro:
+    "Tell us about the world you want to build. This is a demo form: nothing is sent anywhere.",
   submit: "Cast your message!",
   sent: "Demo form: nothing was sent. Grimoire is a fictional studio built by CharmaWeb.",
 };

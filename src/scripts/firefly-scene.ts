@@ -44,7 +44,12 @@ export async function init(canvas: HTMLCanvasElement): Promise<GateScene> {
   const small = innerWidth < 768;
   const n = Math.round((target.length / 3) * (small ? 0.6 : 1)); // samples are random: a prefix is a uniform subset
 
-  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: "low-power" });
+  const renderer = new WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: "low-power",
+  });
   renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1 : 1.5));
   const scene = new Scene();
   const camera = new PerspectiveCamera(35, 1, 0.1, 50);
@@ -60,7 +65,10 @@ export async function init(canvas: HTMLCanvasElement): Promise<GateScene> {
   const c = new Color();
   for (let i = 0; i < n; i++) {
     for (let k = 0; k < 3; k++) end[i * 3 + k] = target[i * 3 + k] / 32767;
-    start.set([(Math.random() * 2 - 1) * 2.5, (Math.random() * 2 - 1) * 2, (Math.random() * 2 - 1) * 1.5], i * 3);
+    start.set(
+      [(Math.random() * 2 - 1) * 2.5, (Math.random() * 2 - 1) * 2, (Math.random() * 2 - 1) * 1.5],
+      i * 3,
+    );
     delay[i] = Math.random() * STAGGER;
     c.copy(gold).lerp(white, Math.random() * 0.35);
     col.set([c.r, c.g, c.b], i * 3);

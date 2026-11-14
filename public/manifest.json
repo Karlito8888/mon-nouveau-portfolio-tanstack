@@ -33,9 +33,6 @@
       "purpose": "maskable"
     }
   ],
-  "categories": [
-    "design",
-    "portfolio"
-  ],
+  "categories": ["design", "portfolio"],
   "lang": "en"
 }
