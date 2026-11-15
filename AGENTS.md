@@ -11,7 +11,7 @@ GitHub repository keep their historical names.
 |---|---|
 | General working rules (verify before claiming, DRY/KISS/YAGNI, scope, docs ladder, mandatory tools, git, explicit agreement) | `~/.omp/agent/RULES.md` |
 | The workstation, the code graphs, the workflows | `~/.omp/agent/AGENTS.md` |
-| Durable project facts (versions, measured gate, debts, open items) | `~/.omp/agent/bank/Mon-Portfolio.md` |
+| Project identity and structural decisions | `~/.omp/agent/bank/Mon-Portfolio.md` |
 
 ## What exists
 
